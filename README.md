@@ -1,17 +1,17 @@
-# pp3-loki
+# potentpi3
 
-![Build Status](https://github.com/OnyxJeff/pp3-loki/actions/workflows/build.yml/badge.svg)
+![Build Status](https://github.com/OnyxJeff/potentpi3/actions/workflows/build.yml/badge.svg)
 ![Maintenance](https://img.shields.io/maintenance/yes/2026.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![GitHub release](https://img.shields.io/github/v/release/OnyxJeff/pp3-loki)
-![Issues](https://img.shields.io/github/issues/OnyxJeff/pp3-loki)
+![GitHub release](https://img.shields.io/github/v/release/OnyxJeff/potentpi3)
+![Issues](https://img.shields.io/github/issues/OnyxJeff/potentpi3)
 
 **Loki** is the internal playground server for my homelab, hosted on a Raspberry Pi 4.
 
 ## 📁 Repo Structure
 
 ```text
-pp3-loki/
+potentpi3/
 ├── .github/workflows/      # CI for YAML validation
 ├── backup_logs/            # Oldest logs from update script
 ├── dockprom/               # Docker container(s) for Prometheus Node Exporter for RPi
@@ -53,7 +53,7 @@ Choose Interface Options Enable i2c
 
 - Run setup_display_service.sh script
 ```bash
-cd ~/pp3-loki/U6143_ssd1306
+cd ~/potentpi3/U6143_ssd1306
 chmod +x setup_display_service.sh
 sudo ./setup_display_service.sh
 ```
@@ -77,9 +77,15 @@ sudo ./setup_display_service.sh
 
 ## ⚠️ Updating the OS
 
+- Make log folders
+```bash
+mkdir ~/potentpi3/logs
+mkdir ~/potentpi3/backup_logs
+```
+
 - Update and Upgrade the System via script:
 ```bash
-cd ~/pp3-loki/scripts
+cd ~/potentpi3/scripts
 chmod +x apt-get-autoupdater.sh
 sudo ./apt-get-autoupdater.sh
 ```
@@ -92,13 +98,15 @@ sudo crontab -e
   - add the following to the bottom of the document:
   ```bash
   # OS-Auto-Updater
-    00 01 * * 0 bash $HOME/pp3-loki/scripts/apt-get-autoupdater.sh
+    00 01 * * 0 bash $HOME/potentpi3/scripts/apt-get-autoupdater.sh
       # execute automatic update script and log every sunday at 01:00 am
-    50 00 1 * * /bin/bash -c 'cp $HOME/pp3-loki/logs/apt-get-autoupdater.log $HOME/pp3-loki/backup_logs/apt-get-autoupdater-$(date +\%Y\%m\%d).log'
+    50 00 1 * * /bin/bash -c 'cp $HOME/potentpi3/logs/apt-get-autoupdater.log $HOME/potentpi3/backup_logs/apt-get-autoupdater-$(date +\%Y\%m\%d).log'
       # saves monthly version of "apt-get-autoupdater.log" on the 1st of every month at 00:50 am
-    51 00 1 * * rm -f $HOME/pp3-loki/logs/apt-get-autoupdater.log
+    51 00 1 * * rm -f $HOME/potentpi3/logs/apt-get-autoupdater.log
       # deletes old weekly log on the 1st of every month at 00:51 am
   ```
+
+---
 
 ## 📦 Installing Docker Compose
 
@@ -128,19 +136,17 @@ docker run hello-world
 docker compose version
 ```
 
----
-
 ### 📝 Installing your first container(s)
 
 - Installing Dockprom (Prometheus Exporter)
 ```bash
-cd ~/pp3-loki/dockprom
+cd ~/potentpi3/dockprom
 docker compose up -d
 ```
 
 ---
 
-### 🗂️ Setting up an NFS shared folder
+## 🗂️ Setting up an NFS shared folder
 
 - Installing NFS client
 ```bash
@@ -184,7 +190,9 @@ sudo systemctl start media-nfs_share.mount
 mount | grep nfs_share
 ```
 
-### 🧲 Installing and Setting up Transmission
+---
+
+## 🧲 Installing and Setting up Transmission
 
 - Run the command below to install *transmission* to the Raspberry Pi.
 ```bash
