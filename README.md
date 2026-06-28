@@ -29,9 +29,7 @@ pp3-loki/
 
 ---
 
-## 🖥️ Installing U6143_ssd1306 Display
-
-- Preparation
+## 📝 Preparation
 
   - Install GIT (app used to download this repo onto your device)
   ```bash
@@ -41,14 +39,17 @@ pp3-loki/
   - Download repo
   ```bash
   cd
-  git clone https://github.com/OnyxJeff/pp3-loki.git
+  git clone https://github.com/OnyxJeff/pp1-odin.git
   ```
+---
 
-  - Launch Raspi-Config
-  ```bash
-  sudo raspi-config
-  ```
-  Choose Interface Options Enable i2c
+## 🖥️ Installing U6143_ssd1306 Display
+
+- Launch Raspi-Config
+```bash
+sudo raspi-config
+```
+Choose Interface Options Enable i2c
 
 - Run setup_display_service.sh script
 ```bash
